@@ -52,4 +52,4 @@ title: "Curriculum Vitae (academic ver.)"
     <div id="side-content"></div>
 </div>
 
-<script src="/static/cv-interact.js"></script>
+<script src="/academic-notes/cv-interact.js"></script>
