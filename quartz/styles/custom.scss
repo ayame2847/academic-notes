@@ -2,7 +2,7 @@
 
 // put your custom CSS here!
 .cv-term {
-    text-decoration: underline dashed #e62310; /* 蒙德里安红虚线 */
+    text-decoration: underline dashed #014da1; /* 蒙德里安蓝虚线 */
     text-underline-offset: 4px;
     cursor: help;
     position: relative;
@@ -38,3 +38,8 @@
     z-index: 1001; box-shadow: -10px 0 30px rgba(0,0,0,0.05);
   }
   #cv-sidebar.active { right: 0; }
+
+  /* 隐藏关系图谱 */
+body[data-slug="cv"] .graph {
+    display: none !important;
+}

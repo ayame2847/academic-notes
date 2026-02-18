@@ -1,13 +1,13 @@
 ---
-title: "Xiangyi Tang - Curriculum Vitae"
+title: "Curriculum Vitae (academic ver.)"
 ---
 
 # Xiangyi Tang
 
-<p align="center">
-  <i class="fa fa-phone"></i> +86 133-2733-5921 &nbsp;&nbsp; 
-  <i class="fa fa-envelope"></i> 12232847@mail.sustech.edu.cn
-</p>
+<div style="text-align: left;">
+  12232847@mail.sustech.edu.cn <br>
+  No. 1088 Xueyuan Avenue, Shenzhen, 518055, P.R. China
+</div>
 
 ## Research Interests
 * Algebraic Combinatorics
@@ -17,14 +17,14 @@ title: "Xiangyi Tang - Curriculum Vitae"
 ## Work Experience
 
 **Full-time Mathematics Teacher at Coursemo Education, Shenzhen** _Jul. 2024 – Nov. 2025_
-* [cite_start]Teaching A-level mathematics, further mathematics, IEPQ, and TMUA courses. 
+* Teaching A-level mathematics, further mathematics, IEPQ, and TMUA courses. 
 
 **Assistant to Prof. Efim Zelmanov, SUSTech** _Mar. 2024 – Jul. 2025_
-* [cite_start]Cuspidal modules over superconformal algebras. 
+* Cuspidal modules over superconformal algebras. 
 
-**Teaching Assistant in the Department of Mathematics, SUSTech** _Sept. [cite_start]2022 – Jul. 2024_ 
-* [cite_start]Taught in tutorial classes, answered questions, and graded exams. 
-* [cite_start]Courses: *Linear Algebra, Advanced Linear Algebra, Abstract Algebra,* <span class="cv-term" data-note="https://ayame2847.github.io/MA235/">Applied Abstract Algebra (24Spring)</span>
+**Teaching Assistant in the Department of Mathematics, SUSTech** _Sept. 2022 – Jul. 2024_ 
+* Taught in tutorial classes, answered questions, and graded exams. 
+* Courses: *Linear Algebra, Advanced Linear Algebra, Abstract Algebra,* <span class="cv-term" data-note="https://ayame2847.github.io/MA235/">Applied Abstract Algebra (24Spring)</span>
 
 ## Extracurricular Activities
 
@@ -41,7 +41,8 @@ title: "Xiangyi Tang - Curriculum Vitae"
 
 * **Languages:** English (TOEFL: 100), Japanese (N3), German (A2)
 * **Computer Skills:** $\LaTeX$, Python, <span class="cv-term" data-note="擅长利用 LLMs 辅助编写代码、优化算法及快速掌握新工具。">Capable of quickly learning new techniques with AI</span>
-* **Creative & Tech Experiences:** * Created games (using Unity)
+* **Creative & Tech Experiences:** 
+    * Created games (using Unity)
     * Designed posters & created WeChat push content
     * Video editing & Podcast operation
 
@@ -59,11 +60,22 @@ document.addEventListener('nav', () => {
 
         // 1. 单击：弹出侧边栏显示链接或注释
         el.addEventListener('click', (e) => {
-            e.preventDefault();
-            const sidebar = document.getElementById('cv-sidebar');
-            document.getElementById('side-title').innerText = el.innerText;
-            document.getElementById('side-content').innerHTML = `资源链接: <a href="${note}" target="_blank">${note}</a>`;
+           const sidebar = document.getElementById('cv-sidebar');
+           const title = document.getElementById('side-title');
+           const content = document.getElementById('side-content');
+    
+           title.innerText = el.innerText;
+           title.style.color = "#014da1"; // 确保标题是蓝色
+
+           // 如果是链接，直接显示可点击的链接，不带多余文字
+           if (note.startsWith('http')) {
+               content.innerHTML = `<a href="${note}" target="_blank" style="color:#014da1; text-decoration:underline;">${note}</a>`;
+            } else {
+              content.innerText = note;
+            }
+    
             sidebar.classList.add('active');
+            e.stopPropagation();
         });
 
         // 2. 双击：直接跳转
