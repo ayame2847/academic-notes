@@ -52,41 +52,4 @@ title: "Curriculum Vitae (academic ver.)"
     <div id="side-content"></div>
 </div>
 
-<script>
-(function() {
-    // 使用点击代理，不使用任何容易被转义的逻辑运算符
-    document.body.addEventListener('click', function(e) {
-        var target = e.target.closest('.cv-term');
-        if (!target) return;
-
-        e.preventDefault();
-        var sidebar = document.getElementById('cv-sidebar');
-        var note = target.getAttribute('data-note');
-        if (!note) note = "";
-        
-        document.getElementById('side-title').innerText = target.innerText;
-        
-        // 简单的字符串判断，避开 & 符号
-        if (note.indexOf('http') === 0) {
-            document.getElementById('side-content').innerHTML = '<a href="' + note + '" target="_blank">' + note + '</a>';
-        } else {
-            document.getElementById('side-content').innerText = note;
-        }
-        
-        sidebar.classList.add('active');
-    });
-
-    // 双击跳转
-    document.body.addEventListener('dblclick', function(e) {
-        var target = e.target.closest('.cv-term');
-        if (target) {
-            var note = target.getAttribute('data-note');
-            if (note) {
-              if (note.indexOf('http') === 0) {
-                  window.open(note, '_blank');
-              }
-            }
-        }
-    });
-})();
-</script>
+<script src="/static/cv-interact.js"></script>
