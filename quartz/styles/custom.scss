@@ -1,3 +1,40 @@
 @use "./base.scss";
 
 // put your custom CSS here!
+.cv-term {
+    text-decoration: underline dashed #e62310; /* 蒙德里安红虚线 */
+    text-underline-offset: 4px;
+    cursor: help;
+    position: relative;
+    transition: all 0.2s ease;
+  
+    &:hover {
+      color: #014da1; /* 悬停变蒙德里安蓝 */
+      background: rgba(1, 77, 161, 0.05);
+    }
+  
+    /* 悬停小窗 (Tooltip) */
+    &:hover::after {
+      content: "点击查看侧边栏 / 双击访问链接";
+      position: absolute;
+      bottom: 130%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1a1a1a;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      z-index: 1000;
+    }
+  }
+  
+  /* 侧边栏样式 */
+  #cv-sidebar {
+    position: fixed; right: -350px; top: 0; width: 350px; height: 100vh;
+    background: white; border-left: 5px solid #1a1a1a;
+    padding: 2rem; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1001; box-shadow: -10px 0 30px rgba(0,0,0,0.05);
+  }
+  #cv-sidebar.active { right: 0; }
