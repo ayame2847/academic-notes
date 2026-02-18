@@ -62,12 +62,23 @@ document.addEventListener('nav', () => {
 
         // 1. 单击：弹出侧边栏显示链接或注释
         el.addEventListener('click', (e) => {
-            e.preventDefault();
-            const sidebar = document.getElementById('cv-sidebar');
-            document.getElementById('side-title').innerText = el.innerText;
-            document.getElementById('side-content').innerHTML = `资源链接: <a href="${note}" target="_blank">${note}</a>`;
-            sidebar.classList.add('active');
-        });
+    const sidebar = document.getElementById('cv-sidebar');
+    const title = document.getElementById('side-title');
+    const content = document.getElementById('side-content');
+    
+    title.innerText = el.innerText;
+    title.style.color = "#014da1"; // 确保标题是蓝色
+
+    // 如果是链接，直接显示可点击的链接，不带多余文字
+    if (note.startsWith('http')) {
+        content.innerHTML = `<a href="${note}" target="_blank" style="color:#014da1; text-decoration:underline;">${note}</a>`;
+    } else {
+        content.innerText = note;
+    }
+    
+    sidebar.classList.add('active');
+    e.stopPropagation();
+});
 
         // 2. 双击：直接跳转
         el.addEventListener('dblclick', () => {

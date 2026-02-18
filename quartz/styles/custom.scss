@@ -1,39 +1,55 @@
 @use "./base.scss";
 
+/* 1. 互动项基础样式 */
 .cv-term {
-    text-decoration: underline dashed #014da1; /* 蒙德里安红虚线 */
+    color: #014da1 !important;
+    text-decoration: underline dashed #014da1 !important;
     text-underline-offset: 4px;
-    cursor: help;
+    cursor: pointer;
     position: relative;
-    transition: all 0.2s ease;
+    display: inline;
   
-    &:hover {
-      color: #014da1; /* 悬停变蒙德里安蓝 */
-      background: rgba(1, 77, 161, 0.05);
-    }
-  
-    /* 悬停小窗 (Tooltip) */
     &:hover::after {
-      content: "点击查看侧边栏 / 双击访问链接";
+      content: "单击查看详情 / 双击跳转";
       position: absolute;
-      bottom: 130%;
+      bottom: 120%;
       left: 50%;
       transform: translateX(-50%);
       background: #1a1a1a;
       color: white;
-      padding: 5px 10px;
+      padding: 4px 8px;
       border-radius: 4px;
-      font-size: 0.75rem;
-      white-space: nowrap;
+      font-size: 12px;
       z-index: 1000;
     }
   }
   
-  /* 侧边栏样式 */
+  /* 2. 侧边栏：改用 transform 以彻底隐藏 */
   #cv-sidebar {
-    position: fixed; right: -350px; top: 0; width: 350px; height: 100vh;
-    background: white; border-left: 5px solid #1a1a1a;
-    padding: 2rem; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 1001; box-shadow: -10px 0 30px rgba(0,0,0,0.05);
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 320px;
+    height: 100vh;
+    background: white;
+    border-left: 4px solid #1a1a1a;
+    padding: 40px 20px;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    z-index: 9999;
+    /* 关键：将整个元素向右平移 100% 彻底隐藏 */
+    transform: translateX(100%);
+    transition: transform 0.3s ease-out;
   }
-  #cv-sidebar.active { right: 0; }
+  
+  /* 激活状态：移回原位 */
+  #cv-sidebar.active {
+    transform: translateX(0);
+  }
+  
+  #side-title { color: #014da1; border-bottom: 2px solid #1a1a1a; margin-bottom: 15px; }
+  .close-btn { position: absolute; top: 10px; right: 10px; cursor: pointer; }
+  
+  /* 关闭关系图谱 */
+body[data-slug="cv"] .graph {
+    display: none !important;
+}
