@@ -1,5 +1,5 @@
 ---
-title: :sparkles: Curriculum Vitae
+title: ✨ Curriculum Vitae
 date: 2026-02-18
 tags:
   - CV
