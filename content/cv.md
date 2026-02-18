@@ -54,18 +54,19 @@ title: "Curriculum Vitae (academic ver.)"
 
 <script>
 (function() {
-    // 事件委托：把点击事件挂在 body 上，解决 Quartz 页面切换失效问题
+    // 使用点击代理，不使用任何容易被转义的逻辑运算符
     document.body.addEventListener('click', function(e) {
-        const target = e.target.closest('.cv-term');
+        var target = e.target.closest('.cv-term');
         if (!target) return;
 
         e.preventDefault();
-        const sidebar = document.getElementById('cv-sidebar');
-        const note = target.getAttribute('data-note') || "";
+        var sidebar = document.getElementById('cv-sidebar');
+        var note = target.getAttribute('data-note');
+        if (!note) note = "";
         
         document.getElementById('side-title').innerText = target.innerText;
         
-        // 处理链接逻辑
+        // 简单的字符串判断，避开 & 符号
         if (note.indexOf('http') === 0) {
             document.getElementById('side-content').innerHTML = '<a href="' + note + '" target="_blank">' + note + '</a>';
         } else {
@@ -75,13 +76,15 @@ title: "Curriculum Vitae (academic ver.)"
         sidebar.classList.add('active');
     });
 
-    // 双击直接跳转逻辑
+    // 双击跳转
     document.body.addEventListener('dblclick', function(e) {
-        const target = e.target.closest('.cv-term');
+        var target = e.target.closest('.cv-term');
         if (target) {
-            const note = target.getAttribute('data-note');
-            if (note && note.indexOf('http') === 0) {
-                window.open(note, '_blank');
+            var note = target.getAttribute('data-note');
+            if (note) {
+              if (note.indexOf('http') === 0) {
+                  window.open(note, '_blank');
+              }
             }
         }
     });
