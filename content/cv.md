@@ -53,37 +53,51 @@ title: "Curriculum Vitae (academic ver.)"
     <button onclick="document.getElementById('cv-sidebar').classList.remove('active')">关闭</button>
 </div>
 
+<div id="cv-sidebar">
+    <button class="close-btn" onclick="document.getElementById('cv-sidebar').classList.remove('active')">关闭</button>
+    <h3 id="side-title">详情</h3>
+    <div id="side-content" style="word-break: break-all;"></div>
+</div>
+
 <script>
+// 使用 Quartz 官方推荐的事件监听方式
 document.addEventListener('nav', () => {
+    const sidebar = document.getElementById('cv-sidebar');
+    const sideTitle = document.getElementById('side-title');
+    const sideContent = document.getElementById('side-content');
+
     document.querySelectorAll('.cv-term').forEach(el => {
         const note = el.getAttribute('data-note');
 
-        // 1. 单击：弹出侧边栏显示链接或注释
-        el.addEventListener('click', (e) => {
-           const sidebar = document.getElementById('cv-sidebar');
-           const title = document.getElementById('side-title');
-           const content = document.getElementById('side-content');
-    
-           title.innerText = el.innerText;
-           title.style.color = "#014da1"; // 确保标题是蓝色
-
-           // 如果是链接，直接显示可点击的链接，不带多余文字
-           if (note.startsWith('http')) {
-               content.innerHTML = `<a href="${note}" target="_blank" style="color:#014da1; text-decoration:underline;">${note}</a>`;
-            } else {
-              content.innerText = note;
-            }
-    
-            sidebar.classList.add('active');
+        // 修复：先移除旧监听器防止重复，再添加新监听器
+        el.onclick = (e) => {
+            e.preventDefault();
             e.stopPropagation();
-        });
-
-        // 2. 双击：直接跳转
-        el.addEventListener('dblclick', () => {
+            
+            sideTitle.innerText = el.innerText;
+            
+            // 内容直接显示链接，不带多余文字
             if (note.startsWith('http')) {
-                window.open(note, '_blank');
+                sideContent.innerHTML = `<a href="${note}" target="_blank" style="color:#014da1; text-decoration:underline; font-weight:bold;">${note}</a>`;
+            } else {
+                sideContent.innerText = note;
             }
-        });
+            
+            sidebar.classList.add('active');
+        };
+
+        // 双击直接跳转
+        el.ondblclick = () => {
+            if (note.startsWith('http')) window.open(note, '_blank');
+        };
     });
+});
+
+// 点击空白处关闭侧边栏
+document.addEventListener('click', (e) => {
+    const sidebar = document.getElementById('cv-sidebar');
+    if (sidebar && sidebar.classList.contains('active') && !sidebar.contains(e.target) && !e.target.classList.contains('cv-term')) {
+        sidebar.classList.remove('active');
+    }
 });
 </script>
