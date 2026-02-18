@@ -53,29 +53,37 @@ title: "Curriculum Vitae (academic ver.)"
 </div>
 
 <script>
-// 使用全局点击代理，解决 Quartz 页面切换失效问题
-document.body.addEventListener('click', (e) => {
-    const target = e.target.closest('.cv-term');
-    if (!target) return;
+(function() {
+    // 事件委托：把点击事件挂在 body 上，解决 Quartz 页面切换失效问题
+    document.body.addEventListener('click', function(e) {
+        const target = e.target.closest('.cv-term');
+        if (!target) return;
 
-    e.preventDefault();
-    const sidebar = document.getElementById('cv-sidebar');
-    const note = target.getAttribute('data-note');
-    
-    document.getElementById('side-title').innerText = target.innerText;
-    document.getElementById('side-content').innerHTML = note.startsWith('http') 
-        ? `<a href="${note}" target="_blank" style="color:#014da1; font-weight:bold;">${note}</a>` 
-        : note;
-    
-    sidebar.classList.add('active');
-});
+        e.preventDefault();
+        const sidebar = document.getElementById('cv-sidebar');
+        const note = target.getAttribute('data-note') || "";
+        
+        document.getElementById('side-title').innerText = target.innerText;
+        
+        // 处理链接逻辑
+        if (note.indexOf('http') === 0) {
+            document.getElementById('side-content').innerHTML = '<a href="' + note + '" target="_blank">' + note + '</a>';
+        } else {
+            document.getElementById('side-content').innerText = note;
+        }
+        
+        sidebar.classList.add('active');
+    });
 
-// 双击代理
-document.body.addEventListener('dblclick', (e) => {
-    const target = e.target.closest('.cv-term');
-    if (target) {
-        const note = target.getAttribute('data-note');
-        if (note && note.startsWith('http')) window.open(note, '_blank');
-    }
-});
+    // 双击直接跳转逻辑
+    document.body.addEventListener('dblclick', function(e) {
+        const target = e.target.closest('.cv-term');
+        if (target) {
+            const note = target.getAttribute('data-note');
+            if (note && note.indexOf('http') === 0) {
+                window.open(note, '_blank');
+            }
+        }
+    });
+})();
 </script>
