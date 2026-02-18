@@ -51,35 +51,36 @@ title: "Curriculum Vitae (academic ver.)"
 ---
 
 <div id="cv-sidebar">
-    <h3 id="side-title" style="color:#e62310">详情</h3>
-    <div id="side-content" style="word-break: break-all; margin-top: 15px;"></div>
-    <br>
-    <button onclick="document.getElementById('cv-sidebar').classList.remove('active')">关闭</button>
+    <button class="close-btn" onclick="document.getElementById('cv-sidebar').classList.remove('active')">关闭</button>
+    <h3 id="side-title">详情</h3>
+    <div id="side-content"></div>
 </div>
 
 <script>
-document.addEventListener('nav', () => {
-    document.querySelectorAll('.cv-term').forEach(el => {
-        const note = el.getAttribute('data-note');
+// 使用全单引号写法，彻底避开 Quartz 编译器的转义陷阱，同时不再依赖外部文件
+document.addEventListener('nav', function() {
+    var terms = document.querySelectorAll('.cv-term');
+    var sidebar = document.getElementById('cv-sidebar');
+    var title = document.getElementById('side-title');
+    var content = document.getElementById('side-content');
 
-        // 1. 单击：弹出侧边栏显示链接或注释
-        el.addEventListener('click', (e) => {
-    const sidebar = document.getElementById('cv-sidebar');
-    const title = document.getElementById('side-title');
-    const content = document.getElementById('side-content');
-    
-    title.innerText = el.innerText;
-    
-    sidebar.classList.add('active');
-    e.stopPropagation();
-});
+    for (var i = 0; i < terms.length; i++) {
+        terms[i].onclick = function(e) {
+            e.preventDefault();
+            
+            // 读取你截图中正确配置的 data-note
+            var note = this.getAttribute('data-note') || '';
+            title.innerText = this.innerText;
 
-        // 2. 双击：直接跳转
-        el.addEventListener('dblclick', () => {
-            if (note.startsWith('http')) {
-                window.open(note, '_blank');
+            // 纯单引号拼接，杜绝报错
+            if (note.indexOf('http') === 0) {
+                content.innerHTML = '<a href=' + "'" + note + "'" + ' target=' + "'_blank'" + ' style=' + "'color:#014da1; font-weight:bold;'" + '>' + note + '</a>';
+            } else {
+                content.innerText = note;
             }
-        });
-    });
+            
+            sidebar.classList.add('active');
+        };
+    }
 });
 </script>
