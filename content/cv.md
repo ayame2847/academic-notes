@@ -4,10 +4,10 @@ title: "Curriculum Vitae (academic ver.)"
 
 # Xiangyi Tang
 
-<p align="center">
+<div style="text-align: left;">
   12232847@mail.sustech.edu.cn <br>
   No. 1088 Xueyuan Avenue, Shenzhen, 518055, P.R. China
-</p>
+</div>
 
 ## Research Interests
 * Algebraic Combinatorics
@@ -49,49 +49,31 @@ title: "Curriculum Vitae (academic ver.)"
 ---
 
 <div id="cv-sidebar">
-    <button class="close-btn" onclick="document.getElementById('cv-sidebar').classList.remove('active')">×</button>
-    <h3 id="side-title" style="color:#e62310; border-bottom: 2px solid #1a1a1a; padding-bottom: 5px;">详情</h3>
-    <div id="side-content" style="margin-top: 15px; font-size: 0.95rem; line-height: 1.6;"></div>
+    <h3 id="side-title" style="color:#e62310">详情</h3>
+    <div id="side-content" style="word-break: break-all; margin-top: 15px;"></div>
+    <br>
+    <button onclick="document.getElementById('cv-sidebar').classList.remove('active')">关闭</button>
 </div>
-
-<style>
-/* 蒙德里安风格虚线下划线 */
-.cv-term {
-    text-decoration: underline dashed #014da1;
-    text-underline-offset: 4px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-.cv-term:hover { color: #014da1; background: rgba(1, 77, 161, 0.05); }
-
-/* 侧边栏样式 */
-#cv-sidebar {
-    position: fixed; right: -350px; top: 0; width: 350px; height: 100vh;
-    background: #fff; border-left: 5px solid #1a1a1a;
-    padding: 30px; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 1001; box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-}
-#cv-sidebar.active { right: 0; }
-.close-btn { background:none; border:none; font-size: 20px; cursor:pointer; float:right; }
-</style>
 
 <script>
 document.addEventListener('nav', () => {
     document.querySelectorAll('.cv-term').forEach(el => {
         const note = el.getAttribute('data-note');
-        
-        // 单击：侧边栏
+
+        // 1. 单击：弹出侧边栏显示链接或注释
         el.addEventListener('click', (e) => {
+            e.preventDefault();
             const sidebar = document.getElementById('cv-sidebar');
             document.getElementById('side-title').innerText = el.innerText;
-            document.getElementById('side-content').innerHTML = note.startsWith('http') ? 
-                `访问课程主页: <a href="${note}" target="_blank">${note}</a>` : note;
+            document.getElementById('side-content').innerHTML = `资源链接: <a href="${note}" target="_blank">${note}</a>`;
             sidebar.classList.add('active');
         });
 
-        // 双击：链接跳转
+        // 2. 双击：直接跳转
         el.addEventListener('dblclick', () => {
-            if (note.startsWith('http')) window.open(note, '_blank');
+            if (note.startsWith('http')) {
+                window.open(note, '_blank');
+            }
         });
     });
 });
