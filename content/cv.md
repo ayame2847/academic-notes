@@ -64,7 +64,7 @@ document.addEventListener('nav', function() {
     var content = document.getElementById('side-content');
 
     terms.forEach(function(term) {
-        // 1. 单击事件：呼出侧边栏
+        // 单击事件：呼出侧边栏
         term.onclick = function(e) {
             e.preventDefault();
             var note = this.getAttribute('data-note') || '';
@@ -86,16 +86,6 @@ document.addEventListener('nav', function() {
             sidebar.classList.add('active');
         };
 
-        // 2. 双击事件：直接跳转外链
-        term.ondblclick = function(e) {
-            e.preventDefault(); // 防止双击选中文字
-            var note = this.getAttribute('data-note') || '';
-            
-            // 只要是以 http 开头，双击就直接在新标签页打开
-            if (note.indexOf('http') === 0) {
-                window.open(note, '_blank');
-            }
-        };
     });
 });
 </script>

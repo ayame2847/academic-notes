@@ -10,7 +10,7 @@
     display: inline;
   
     &:hover::after {
-      content: "单击查看详情 / 双击跳转";
+      content: "单击查看详情";
       position: absolute;
       bottom: 120%;
       left: 50%;
