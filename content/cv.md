@@ -68,13 +68,6 @@ document.addEventListener('nav', () => {
     
     title.innerText = el.innerText;
     title.style.color = "#014da1"; // 确保标题是蓝色
-
-    // 如果是链接，直接显示可点击的链接，不带多余文字
-    if (note.startsWith('http')) {
-        content.innerHTML = `<a href="${note}" target="_blank" style="color:#014da1; text-decoration:underline;">${note}</a>`;
-    } else {
-        content.innerText = note;
-    }
     
     sidebar.classList.add('active');
     e.stopPropagation();
