@@ -1,10 +1,11 @@
 ---
-title: Curriculum Vitae
+title: :sparkles: Curriculum Vitae
 date: 2026-02-18
 tags:
   - CV
   - Academic
-  - Pinned
+  - Skills
+  - Experience
 ---
 
 # Xiangyi Tang
