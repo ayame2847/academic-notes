@@ -63,16 +63,17 @@ document.addEventListener('nav', function() {
     var title = document.getElementById('side-title');
     var content = document.getElementById('side-content');
 
-    for (var i = 0; i < terms.length; i++) {
-        terms[i].onclick = function(e) {
+    // 使用 forEach 循环，完美避开 '<' (小于号) 转义陷阱
+    terms.forEach(function(term) {
+        term.onclick = function(e) {
             e.preventDefault();
             var note = this.getAttribute('data-note') || '';
             title.innerText = this.innerText;
             
-            // 先清空之前的内容
+            // 清空旧内容
             content.innerHTML = '';
 
-            // 纯粹的原生 DOM 操作，彻底杜绝所有字符串拼接和转义风险
+            // 使用纯净的 DOM API，完美避开所有引号和标签转义
             if (note.indexOf('http') === 0) {
                 var link = document.createElement('a');
                 link.href = note;
@@ -88,6 +89,6 @@ document.addEventListener('nav', function() {
             
             sidebar.classList.add('active');
         };
-    }
+    });
 });
 </script>
