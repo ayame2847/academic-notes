@@ -25,7 +25,7 @@ title: "Curriculum Vitae (academic ver.)"
 
 ## Work Experience
 **Full-time Mathematics Teacher at Coursemo Education** _2024 – 2025_
-* Teaching A-level & Further Math, IEPQ, and TMUA.
+* Teaching A-level Math, Further Math, IEPQ, and TMUA.
 
 **Assistant to Prof. Efim Zelmanov, SUSTech** _2024 – 2025_
 * Research on superconformal algebras and Jordan superalgebras.
@@ -44,8 +44,10 @@ title: "Curriculum Vitae (academic ver.)"
 * **Computer Skills:** $\LaTeX$, Python, Quickly learning new techniques with AI
 * **Creative & Tech Experiences:** 
     * Created games (using Unity)
-    * Designed posters & created WeChat push content
-    * Video editing & Podcast operation
+    * Designed posters
+    * Created WeChat push content
+    * Video editing 
+    * Podcast operation
 ---
 
 <div id="cv-sidebar">
@@ -67,7 +69,6 @@ document.addEventListener('nav', () => {
     const content = document.getElementById('side-content');
     
     title.innerText = el.innerText;
-    title.style.color = "#014da1"; // 确保标题是蓝色
     
     sidebar.classList.add('active');
     e.stopPropagation();
