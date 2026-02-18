@@ -57,7 +57,6 @@ title: "Curriculum Vitae (academic ver.)"
 </div>
 
 <script>
-// 使用全单引号写法，彻底避开 Quartz 编译器的转义陷阱，同时不再依赖外部文件
 document.addEventListener('nav', function() {
     var terms = document.querySelectorAll('.cv-term');
     var sidebar = document.getElementById('cv-sidebar');
@@ -67,14 +66,22 @@ document.addEventListener('nav', function() {
     for (var i = 0; i < terms.length; i++) {
         terms[i].onclick = function(e) {
             e.preventDefault();
-            
-            // 读取你截图中正确配置的 data-note
             var note = this.getAttribute('data-note') || '';
             title.innerText = this.innerText;
+            
+            // 先清空之前的内容
+            content.innerHTML = '';
 
-            // 纯单引号拼接，杜绝报错
+            // 纯粹的原生 DOM 操作，彻底杜绝所有字符串拼接和转义风险
             if (note.indexOf('http') === 0) {
-                content.innerHTML = '<a href=' + "'" + note + "'" + ' target=' + "'_blank'" + ' style=' + "'color:#014da1; font-weight:bold;'" + '>' + note + '</a>';
+                var link = document.createElement('a');
+                link.href = note;
+                link.target = '_blank';
+                link.innerText = note;
+                link.style.color = '#014da1';
+                link.style.fontWeight = 'bold';
+                link.style.textDecoration = 'underline';
+                content.appendChild(link);
             } else {
                 content.innerText = note;
             }
