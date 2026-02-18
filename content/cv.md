@@ -63,17 +63,14 @@ document.addEventListener('nav', function() {
     var title = document.getElementById('side-title');
     var content = document.getElementById('side-content');
 
-    // 使用 forEach 循环，完美避开 '<' (小于号) 转义陷阱
     terms.forEach(function(term) {
+        // 1. 单击事件：呼出侧边栏
         term.onclick = function(e) {
             e.preventDefault();
             var note = this.getAttribute('data-note') || '';
             title.innerText = this.innerText;
-            
-            // 清空旧内容
             content.innerHTML = '';
-
-            // 使用纯净的 DOM API，完美避开所有引号和标签转义
+            
             if (note.indexOf('http') === 0) {
                 var link = document.createElement('a');
                 link.href = note;
@@ -86,8 +83,18 @@ document.addEventListener('nav', function() {
             } else {
                 content.innerText = note;
             }
-            
             sidebar.classList.add('active');
+        };
+
+        // 2. 双击事件：直接跳转外链
+        term.ondblclick = function(e) {
+            e.preventDefault(); // 防止双击选中文字
+            var note = this.getAttribute('data-note') || '';
+            
+            // 只要是以 http 开头，双击就直接在新标签页打开
+            if (note.indexOf('http') === 0) {
+                window.open(note, '_blank');
+            }
         };
     });
 });
