@@ -31,7 +31,11 @@
     right: 0;
     width: 320px;
     height: 100vh;
-    background: white;
+
+    overflow-y: auto; 
+    box-sizing: border-box; /* 确保内边距不会撑爆屏幕高度 */
+
+    background: #f0b944;
     border-left: 4px solid #1a1a1a;
     padding: 40px 20px;
     box-shadow: -5px 0 15px rgba(0,0,0,0.1);
