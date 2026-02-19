@@ -53,7 +53,7 @@ tags:
 * **Computer Skills:** $\LaTeX$, Python, Quickly learning new techniques with AI
 * **Creative Experiences:** 
     * Created aesthetic education games (using Unity)
-    * Designed posters
+    * <span class="cv-term" data-img="p1.jpg, p2.jpg">Designed posters</span>
     * Created WeChat push content
     * Edited videos
     * Operated podcast (NanO studio)
@@ -73,19 +73,34 @@ document.addEventListener('nav', function() {
     var content = document.getElementById('side-content');
 
     terms.forEach(function(term) {
-        // 单击事件：呼出侧边栏
+        // 1. 单击事件
         term.onclick = function(e) {
             e.preventDefault();
             var note = this.getAttribute('data-note') || '';
-            title.innerText = this.innerText;
-            content.innerHTML = '';
+            var imgs = this.getAttribute('data-img'); // 新增：读取图片数据
             
-            if (note.indexOf('http') === 0) {
+            title.innerText = this.innerText;
+            content.innerHTML = ''; // 清空旧内容
+            
+            // 核心逻辑分流：优先判断是不是图片模式
+            if (imgs) {
+                var imgArray = imgs.split(',');
+                imgArray.forEach(function(imgUrl) {
+                    var imgEl = document.createElement('img');
+                    imgEl.src = imgUrl.trim();
+                    // 用纯 DOM 注入样式，海报展示更精美，且避开所有转义坑
+                    imgEl.style.width = '100%';
+                    imgEl.style.marginBottom = '15px';
+                    imgEl.style.borderRadius = '6px';
+                    imgEl.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                    content.appendChild(imgEl);
+                });
+            } else if (note.indexOf('http') === 0) {
                 var link = document.createElement('a');
                 link.href = note;
                 link.target = '_blank';
                 link.innerText = note;
-                link.style.color = '#014da1';
+                link.style.color = '#014da1'; // 或者你喜欢的红色 #e62310
                 link.style.fontWeight = 'bold';
                 link.style.textDecoration = 'underline';
                 content.appendChild(link);
@@ -95,6 +110,14 @@ document.addEventListener('nav', function() {
             sidebar.classList.add('active');
         };
 
+        // 2. 双击事件
+        term.ondblclick = function(e) {
+            e.preventDefault();
+            var note = this.getAttribute('data-note') || '';
+            if (note.indexOf('http') === 0) {
+                window.open(note, '_blank');
+            }
+        };
     });
 });
 </script>
